@@ -1,15 +1,29 @@
 package uniandes.dpoo.taller1.modelo;
 
+import java.util.ArrayList;
+
 public class Ingrediente {
+	private String nombre;
+	private int costoAdicional ;
+	/**
+	 * @param nombre
+	 * @param costeAdicional
+	 */
 
-	public int getCostoAdicional() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Ingrediente (int costoAdiconal, String nombre){
+		this.costoAdicional = costoAdiconal;
+		this.nombre = nombre;
 	}
-
+	
+	
+		
+	public int getCostoAdicional() {
+		// aqui solo tengo que coger el precio o comparar el precio con el nombre del producto ?
+		return this.costoAdicional;
+	}
+	
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.nombre;
 	}
 
 }
