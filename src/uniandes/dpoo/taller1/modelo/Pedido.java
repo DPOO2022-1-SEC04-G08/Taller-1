@@ -10,7 +10,7 @@ import uniandes.dpoo.taller1.modelo.Producto;
 
 public class Pedido {
 	// Attributes
-		private int numeroPedidos;
+		private static int numeroPedidos;
 		private int idPedido;
 		private String nombreCliente; 
 		private String direccionCliente; 
