@@ -21,6 +21,7 @@ public class Pedido {
 		public Pedido(String nombreCliente, String direccionCliente) {
 			this.nombreCliente = nombreCliente; 
 			this.direccionCliente = direccionCliente;
+			this.idPedido += 1;
 		}
 		
 		// Get methods
