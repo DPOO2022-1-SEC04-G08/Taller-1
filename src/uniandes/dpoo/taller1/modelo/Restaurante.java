@@ -12,6 +12,7 @@ public class Restaurante {
 	
 	private ArrayList<Pedido> pedidos;
 	private Pedido PedidoEnCurso;
+	
 	//Duda: Como se deben agregar los productos al pedido?
 	
 	public void iniciarPedido(String nombreCliente, String direccionCliente ) {
