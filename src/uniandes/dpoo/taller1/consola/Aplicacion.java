@@ -58,7 +58,33 @@ public class Aplicacion {
 			mostrarMenu();
 			int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion"));
 			// aqui van los ifs para hacer funcionnar el programa 
-			if (opcion_seleccionada  == 6) 
+			if (opcion_seleccionada  == 1) 
+			{
+				mostrar_menu();
+				
+			}
+			else if (opcion_seleccionada  == 2) 
+			{
+				System.out.println("cerrando programa");
+				
+			} 
+			else if (opcion_seleccionada  == 3) 
+			{
+				System.out.println("cerrando programa");
+				
+			} 
+			else if (opcion_seleccionada  == 4) 
+			{
+				System.out.println("cerrando programa");
+				
+			} 
+			else if (opcion_seleccionada  == 5) 
+			{
+				System.out.println("cerrando programa");
+				
+			} 
+			
+			else if (opcion_seleccionada  == 6) 
 			{
 				System.out.println("cerrando programa");
 				continuar = false;
@@ -84,9 +110,18 @@ public class Aplicacion {
 		//6 Terminar pedido
 		System.out.println("3. agregar un elemento a un pedido");
 		
-		System.out.println("4. cerar un pedido y guardar la factura");
+		System.out.println("4. cerrar un pedido y guardar la factura");
 		System.out.println("5. Consultar la informacion de un pedido y guardar la factura");
 		System.out.println("6. Salir de la aplicación\n");
+	}
+	
+	// funcion para mostrar el menu
+
+	private void mostrar_menu() 
+	{
+		
+		System.out.println("el menu es: ");
+		//insertar el menu 
 	}
 
 
