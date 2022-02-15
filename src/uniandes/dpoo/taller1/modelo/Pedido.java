@@ -94,7 +94,7 @@ public class Pedido {
 		}
 		// Preguntar si el archivo nos es dado por parametro o se crea desde 0 el archivo 
 		public void guardarFactura(File archivo) throws IOException {
-			//El formato del archi ha de ser ./Facturas/archivo.txt para que se guarde en la carpeta Facturascfvvvvvvvvvvvvvvvvbv g32
+			//El formato del archi ha de ser ./Facturas/archivo.txt para que se guarde en la carpeta Facturas
 			// Creacion de directorio (carpeta Facturas) dentro del proyecto
 			File directorio = new File("./Facturas");
 			
@@ -105,6 +105,7 @@ public class Pedido {
 			// Escribir el texto generado en la otra funcion dentro del archivo de parámetro
 			//Ojo al hacer restaurante incluir los tipos de archivo ./Facturas/archivo.txt
 			//para que se guarde en facturas
+			
 			
 			 FileWriter escribir = new FileWriter(archivo, true);
 			 String[] facturaPartida = generarTextoFactura().split(";"); 
