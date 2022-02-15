@@ -74,7 +74,16 @@ public class Aplicacion {
 		System.out.println("\nOpciones de la aplicación\n");
 		System.out.println("1. mostrar menu");
 		System.out.println("2. iniciar un nuevo pedido");
+		//Pedir nombre y direccion
+		//2 Preguntar si quiere combo 
+		//3 Si quiere:  Ingrese los combos que desea pedir separados por ;
+		//4 Preguntar si quiere productos del Menu
+		//Si quiere: Ingrese los productos del menu que quiere pedir separados por ; 
+		//5 Preguntar si quiere ingredientes adicionales
+		//Si quiere Infresar ingredientes que quiere pedir separados por ; 
+		//6 Terminar pedido
 		System.out.println("3. agregar un elemento a un pedido");
+		
 		System.out.println("4. cerar un pedido y guardar la factura");
 		System.out.println("5. Consultar la informacion de un pedido y guardar la factura");
 		System.out.println("6. Salir de la aplicación\n");
