@@ -1,4 +1,4 @@
-package uniandes.dpoo.taller.procesamiento;
+package uniandes.dpoo.taller1.procesamiento;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
