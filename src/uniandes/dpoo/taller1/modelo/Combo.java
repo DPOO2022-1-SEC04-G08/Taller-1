@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Combo implements Producto{
 	private double descuento;
 	private String nombreCombo;
-	private ArrayList<ProductoMenu> itemsCombo;
+	public ArrayList<ProductoMenu> itemsCombo;
 	
 	/**
 	 * @param descuento
