@@ -67,7 +67,7 @@ public class Aplicacion {
 			}
 			else if (opcion_seleccionada  == 2) 
 			{
-				System.out.println("cerrando programa");
+				nuevoPedido();
 				
 			} 
 			else if (opcion_seleccionada  == 3) 
@@ -126,20 +126,115 @@ public class Aplicacion {
 		//insertar el menu 
 	}
 
-	//private void nuevoPedido()
-	//{
-	//	String productos = new String("");
-	//	int numeroProductos = Integer.parseInt(input("Por favor seleccione una opcion"));
-	//	int contador = 0;
-	//	while (contador < numeroProductos)
-	//	{
-	//		if (contador == (numeroProductos - 1))
-	//		{
-	//			string producto = input("inserte el producto")
-	//			productos = productos+ 
-	//		}
-	//	}
-	//}
+	private void nuevoPedido()
+	{
+		String productos = new String("");
+		String producto = new String("");
+		int numeroProductos = Integer.parseInt(input("¿Cuantos productos quiere comprar?"));
+		int indiceProducto = -1; 
+		int contador = 0;
+		while (contador < numeroProductos)
+		{
+			if (numeroProductos == 1)
+			{
+				
+				System.out.print("1. combos \n");
+				System.out.print("2. ingredientes \n");
+				System.out.print("3. menu normal \n");
+				indiceProducto  = Integer.parseInt(input("Por favor seleccione una opcion"));
+				boolean hasta = false;
+				if ((indiceProducto== 0) || ( indiceProducto> 3)){
+					hasta = true;
+				}
+				while (hasta) {
+					indiceProducto = Integer.parseInt(input("Por favor seleccione una opcion valida"));
+					if (( indiceProducto != 0) && (indiceProducto< 4)) {
+						hasta = false;
+					}
+				}
+				if (indiceProducto == 1)
+				{
+					producto = nombreCombo();
+				}
+				
+				else if (indiceProducto == 2)
+				{
+					producto = nombreIngrediente();
+				}
+				else if (indiceProducto == 3)
+				{
+					producto = nombreMenu();
+				}
+				productos = productos+ producto;
+				contador = contador +1;
+			}
+			else if(contador  == 0)
+			{
+				System.out.print("1. combos \n");
+				System.out.print("2. ingredientes \n");
+				System.out.print("3. menu normal \n");
+				indiceProducto  = Integer.parseInt(input("Por favor seleccione una opcion"));
+				boolean hasta = false;
+				if ((indiceProducto== 0) || ( indiceProducto> 3)){
+					hasta = true;
+				}
+				while (hasta) {
+					indiceProducto = Integer.parseInt(input("Por favor seleccione una opcion valida"));
+					if (( indiceProducto != 0) && (indiceProducto< 4)) {
+						hasta = false;
+					}
+				}
+				if (indiceProducto == 1)
+				{
+					producto = nombreCombo();
+				}
+				
+				else if (indiceProducto == 2)
+				{
+					producto = nombreIngrediente();
+				}
+				else if (indiceProducto == 3)
+				{
+					producto = nombreMenu();
+				}
+				productos = producto + ",";
+				contador = contador +1;
+			}
+			else
+			{
+				System.out.print("1. combos \n");
+				System.out.print("2. ingredientes \n");
+				System.out.print("3. menu normal \n");
+				indiceProducto  = Integer.parseInt(input("Por favor seleccione una opcion"));
+				boolean hasta = false;
+				if ((indiceProducto== 0) || ( indiceProducto> 3)){
+					hasta = true;
+				}
+				while (hasta) {
+					indiceProducto = Integer.parseInt(input("Por favor seleccione una opcion valida"));
+					if (( indiceProducto != 0) && (indiceProducto< 4)) {
+						hasta = false;
+					}
+				}
+				if (indiceProducto == 1)
+				{
+					producto = nombreCombo();
+				}
+				
+				else if (indiceProducto == 2)
+				{
+					producto = nombreIngrediente();
+				}
+				else if (indiceProducto == 3)
+				{
+					producto = nombreMenu();
+				}
+				productos = productos+ producto + ",";
+				contador = contador +1;
+			}
+		}
+		System.out.print(productos);
+	}
 	
 	//para que nos de el nombre del combo
 	
@@ -283,7 +378,7 @@ public class Aplicacion {
 		return respuesta;
 	}
 
-	private String ingrediente ()
+	private String nombreIngrediente ()
 	{
 		System.out.print("1. lechuga \n");
 		System.out.print("2. tomate \n");
