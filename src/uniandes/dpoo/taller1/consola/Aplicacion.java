@@ -22,6 +22,7 @@ public class Aplicacion {
 	private ArrayList<Ingrediente> ingredientes= new ArrayList<>(); 
 	private ArrayList<ProductoMenu> ProductosMenu= new ArrayList<>(); 
 	private ArrayList<Combo> combos= new ArrayList<>(); 	
+	private ArrayList<ProductoMenu> bebidas= new ArrayList<>(); 
 	
 	
 
@@ -41,6 +42,7 @@ public class Aplicacion {
 		ArrayList<ProductoMenu> menu = LoaderInformacionArchivos.leerInfoArchivoProductosMenu("./data/menu.txt");
 		ArrayList<Ingrediente> ingredientes = LoaderInformacionArchivos.leerInfoArchivoIngredientes("./data/ingredientes.txt");
 		ArrayList<Combo> combos = LoaderInformacionArchivos.leerInfoArchivoCombos("./data/combos.txt", menu);
+		ArrayList<ProductoMenu> bebidas = LoaderInformacionArchivos.leerInfoArchivoBebidas("./data/bebidas.txt");
 		for (ProductoMenu e: menu) {
 			System.out.println(e.getNombre());
 
@@ -174,6 +176,7 @@ public class Aplicacion {
 		this.ProductosMenu = LoaderInformacionArchivos.leerInfoArchivoProductosMenu("./data/menu.txt");
 		this.ingredientes = LoaderInformacionArchivos.leerInfoArchivoIngredientes("./data/ingredientes.txt");
 		this.combos = LoaderInformacionArchivos.leerInfoArchivoCombos("./data/combos.txt", ProductosMenu);
+		this.bebidas =LoaderInformacionArchivos.leerInfoArchivoBebidas("./data/bebidas.txt");
 	}
 	
 	
@@ -220,18 +223,19 @@ public class Aplicacion {
 			System.out.print("�Que desea comprar?");
 			System.out.print("1. combos \n");
 			System.out.print("2. menu normal \n");
-			System.out.print("3. Salir \n");
+			System.out.print("3. Bebidas\n");
+			System.out.print("4. Salir \n");
 			//System.out.print("2. ingredientes \n");
 			int indiceProducto  = Integer.parseInt(input("Por favor seleccione una opcion"));
 			
 			//Opcion valida
 			boolean hasta = false;
-			if ((indiceProducto== 0) || ( indiceProducto> 3)){
+			if ((indiceProducto== 0) || ( indiceProducto> 4)){
 				hasta = true;
 			}
 			while (hasta) {
 				indiceProducto = Integer.parseInt(input("Por favor seleccione una opcion valida"));
-				if (( indiceProducto != 0) && (indiceProducto< 4)) {
+				if (( indiceProducto != 0) && (indiceProducto< 5)) {
 					hasta = false;
 				}
 			}
@@ -242,6 +246,11 @@ public class Aplicacion {
 			{
 				Combo productoCombo = nombreCombo();	
 				productosPedido.add(productoCombo); 
+			}
+			else if (indiceProducto == 3) {
+				ProductoMenu productoBebida = nombreBebidas();	
+				productosPedido.add(productoBebida); 
+				
 			}
 			else if (indiceProducto == 2)
 			{
@@ -304,7 +313,7 @@ public class Aplicacion {
 				
 	
 				}
-			else if (indiceProducto == 3)
+			else if (indiceProducto == 4)
 			{ 
 				pidiendo = false; 
 			}
@@ -686,6 +695,36 @@ public class Aplicacion {
 		*/
 		
 	}
+	private ProductoMenu nombreBebidas ()
+	{
+		int numeral = 1; 
+		for (ProductoMenu prod: this.bebidas) {
+			System.out.println(String.valueOf(numeral) +"."+ prod.getNombre() );
+			numeral+=1;
+			
+		}
+		
+		
+		ProductoMenu respuesta = null;
+		
+		int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion"));
+		boolean hasta = false;
+		if ((opcion_seleccionada == 0) || ( opcion_seleccionada > this.bebidas.size())){
+			hasta = true;
+		}
+		while (hasta) {
+			opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion valida"));
+			if (( opcion_seleccionada != 0) && (opcion_seleccionada < this.bebidas.size())) {
+				hasta = false;
+			}
+			
+		}
+		
+		respuesta = this.bebidas.get((opcion_seleccionada-1));
+		return respuesta;
+		
+	}
+	
 
 	private Ingrediente nombreIngrediente ()
 	{

@@ -18,6 +18,7 @@ public class Restaurante {
 	private ArrayList<Producto> ingredientes= new ArrayList<>(); 
 	private ArrayList<Producto> ProductosMenu= new ArrayList<>(); 
 	private ArrayList<Producto> combos= new ArrayList<>(); 	
+	private ArrayList<Producto> bebidas= new ArrayList<>(); 	
 	
 	
 	
@@ -54,6 +55,11 @@ public class Restaurante {
 		
 		ArrayList<Combo> combos = LoaderInformacionArchivos.leerInfoArchivoCombos("./data/combos.txt", menu);
 		return combos; 
+	}
+	public ArrayList<ProductoMenu>cargarBebidas() throws FileNotFoundException, IOException {
+		
+		ArrayList<ProductoMenu> menu = LoaderInformacionArchivos.leerInfoArchivoBebidas("./data/menu.txt");
+		return menu; 
 	}
 
 

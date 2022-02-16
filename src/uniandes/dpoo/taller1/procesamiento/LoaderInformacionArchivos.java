@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import uniandes.dpoo.taller1.modelo.Combo;
 import uniandes.dpoo.taller1.modelo.ProductoMenu;
 import uniandes.dpoo.taller1.modelo.Ingrediente;
+import uniandes.dpoo.taller1.modelo.Producto;
 
 
 public class LoaderInformacionArchivos {
@@ -117,6 +118,28 @@ public class LoaderInformacionArchivos {
 		
 		return Ingredientes;
 		
+	}
+	public static ArrayList<ProductoMenu> leerInfoArchivoBebidas (String rutaArchivo) throws IOException{
+		ArrayList<ProductoMenu>  bebidas= new ArrayList<ProductoMenu>();
+		//Inicio para lectura de archivo 
+		
+		BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
+		String linea = br.readLine(); 
+		// Un Ingrediente tiene la forma: nombre;CostoAdicional
+		while (linea != null) // Cuando se llegue al final del archivo, linea tendra el valor null
+		{
+			// Separar los valores que estan en la linea por el caracter ';'
+			String[] partes = linea.split(";");
+			//Partes 0 es el nombre Partes 1 es el precio adicional
+			
+			ProductoMenu nuevoIngrediente= new ProductoMenu(partes[0], Integer.parseInt(partes[1]));   // Creacion de un objeto Ingrediente con precio Adicional y Nombre
+			bebidas.add(nuevoIngrediente );
+
+			linea = br.readLine(); // leer la proxima linea en el archivo con un nuevo Ingrediente
+		}
+		br.close();
+		
+		return bebidas;
 	}
 	
 
