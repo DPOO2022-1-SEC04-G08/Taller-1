@@ -8,3 +8,13 @@ corral    14000
 Precio neto: 14000
 IVA: 2660
 Precio Total: 16660
+Factura
+ Id del Pedido: 1
+ Precio por producto: 
+corral    14000
+
+
+
+Precio neto: 14000
+IVA: 2660
+Precio Total: 16660

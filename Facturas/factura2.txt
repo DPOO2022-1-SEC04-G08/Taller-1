@@ -8,3 +8,13 @@ corral    14000
 Precio neto: 14000
 IVA: 2660
 Precio Total: 16660
+Factura
+ Id del Pedido: 2
+ Precio por producto: 
+combo especial    34493
+
+
+
+Precio neto: 34493
+IVA: 6553
+Precio Total: 41046

@@ -68,7 +68,7 @@ public class Restaurante {
 		File archivo = new File("./Facturas/factura" + String.valueOf(pedido.getIdPedido()) + ".txt");
 		
 		//Se crea la factura y se guarda en un File dentro de la carpeta Facturas
-		getPedidoEnCurso().guardarFactura(archivo);
+		pedido.guardarFactura(archivo);
 		
 		//  Se elimina el pedido en curso de la lista
 		//pedidos.remove(0);
