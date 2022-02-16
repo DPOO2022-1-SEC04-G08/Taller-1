@@ -30,6 +30,9 @@ public class Pedido {
 			return idPedido;
 		}
 		 
+		public ArrayList<Producto> getItemsPedido() {
+			return itemsPedido;
+		}
 		//Precio neto antes de impuestos
 		// Preguntar si se deberian hacer estos metodos float para casos donde 
 		//el precio o el impuesto no es entero?
@@ -117,9 +120,24 @@ public class Pedido {
 			 }
 			 
 			 escribir.close();
-			 
-
-
+			
+		}
+		public void equals(Pedido pedidoComparar) {
+			
+			boolean same = true; 
+			for (Producto prod: this.itemsPedido) {
+				for (Producto prod2: pedidoComparar.getItemsPedido()) {
+					if (prod.getNombre().equals(prod2.getNombre())) {
+						same = true; 
+					}
+					else {
+						same=false; 
+					}
+					
+				}
+				
+			}
+			
 			
 		}
 
