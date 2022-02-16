@@ -38,3 +38,16 @@ combo corral    24490
 Precio neto: 24490
 IVA: 4653
 Precio Total: 29143
+Factura
+ Id del Pedido: 1
+ Precio por producto: 
+combo todoterreno    36893Calorias4850
+agua cristal sin gas    5000Calorias2000
+hawaiana, sin tocineta picada, extra frijol refrito    24500Calorias300
+
+
+
+Precio neto: 66393
+IVA: 12614
+Precio Total: 79007
+Calorias Total: 7150

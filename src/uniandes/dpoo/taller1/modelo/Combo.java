@@ -6,6 +6,7 @@ public class Combo implements Producto{
 	private double descuento;
 	private String nombreCombo;
 	public ArrayList<ProductoMenu> itemsCombo= new ArrayList<>();
+	private int calorias; 
 	
 	/**
 	 * @param descuento
@@ -39,6 +40,18 @@ public class Combo implements Producto{
 	
 	public void agregarItemACombo(ProductoMenu itemCombo) {
 		itemsCombo.add(itemCombo);
+	}
+
+	@Override
+	public int getCalorias() {
+		
+		int calorias = 0;
+		for (Producto prod: itemsCombo ) {
+			
+			calorias = calorias + prod.getCalorias(); 
+			
+		}
+		return calorias;
 	}
 
 }

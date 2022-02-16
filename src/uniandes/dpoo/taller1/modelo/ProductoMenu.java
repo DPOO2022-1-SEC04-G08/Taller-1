@@ -3,6 +3,7 @@ package uniandes.dpoo.taller1.modelo;
 public class ProductoMenu implements Producto{
 	private String nombre;
 	private int precioBase;
+	private int calorias; 
 	
 	
 	
@@ -10,9 +11,10 @@ public class ProductoMenu implements Producto{
 	 * @param nombre
 	 * @param precioBase
 	 */
-	public ProductoMenu(String nombre, int precioBase) {
+	public ProductoMenu(String nombre, int precioBase, int calorias) {
 		this.nombre = nombre;
 		this.precioBase = precioBase;
+		this.calorias = calorias; 
 	}
 	@Override
 	public int getPrecio() {
@@ -25,6 +27,10 @@ public class ProductoMenu implements Producto{
 	@Override
 	public String generarTextoFactura() {
 		return this.getNombre() + " : " + this.getPrecio() + "COP";
+	}
+	@Override
+	public int getCalorias() {
+		return this.calorias;
 	}
 	
 	

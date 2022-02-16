@@ -14,6 +14,7 @@ public class Pedido {
 		private static int idPedido;
 		private String nombreCliente; 
 		private String direccionCliente; 
+	
 		
 		private  ArrayList<Producto> itemsPedido= new ArrayList<>();  
 		
@@ -66,6 +67,16 @@ public class Pedido {
 			
 			return PrecioTotal;
 		}
+		private int getCaloriasTotal() {
+			int calorias = 0;
+			for (Producto producto: itemsPedido) {
+				
+				calorias += producto.getCalorias();
+			}
+			return calorias; 
+			
+		}
+		
 		
 		//Methods
 		
@@ -83,8 +94,9 @@ public class Pedido {
 				
 				String nameProducto = producto.getNombre();
 				int precioProducto = producto.getPrecio();
+				int caloriasProducto = producto.getCalorias(); 
 				
-				String format = nameProducto + "    " + String.valueOf(precioProducto)+";"; 
+				String format = nameProducto + "    " + String.valueOf(precioProducto)+"Calorias"+ String.valueOf(caloriasProducto)+";"; 
 				FacturaText += format; 
 				
 			}
@@ -92,6 +104,7 @@ public class Pedido {
 			FacturaText += "Precio neto: " + String.valueOf(getPrecioNetoPedido())+ ";";
 			FacturaText += "IVA: " + String.valueOf(getPrecioIVAPedido())+ ";";
 			FacturaText += "Precio Total: " + String.valueOf(getPrecioTotalPedido())+ ";";
+			FacturaText += "Calorias Total: " + String.valueOf(getCaloriasTotal())+ ";";
 			return FacturaText; 
 			
 		}

@@ -6,6 +6,7 @@ public class ProductoAjustado implements Producto {
 	private ProductoMenu base;
 	public ArrayList<Ingrediente> agregados= new ArrayList<>();
 	public ArrayList<Ingrediente> eliminados= new ArrayList<>();
+	private int calorias; 
 	
 	
 	public ProductoAjustado(ProductoMenu base) {
@@ -36,6 +37,18 @@ public class ProductoAjustado implements Producto {
 	@Override
 	public String generarTextoFactura() {
 		return this.getNombre() + " : " + this.getPrecio() + "COP";
+	}
+	@Override
+	public int getCalorias() {
+		
+		int precio = base.getCalorias();
+		for(int i = 0;i<this.agregados.size();i++) {
+			calorias = calorias + this.agregados.get(i).getCalorias();
+		}
+		for(int i = 0;i<this.eliminados.size();i++) {
+			calorias = calorias + this.eliminados.get(i).getCalorias();
+		}
+		return precio;
 	}
 
 }

@@ -33,7 +33,7 @@ public class LoaderInformacionArchivos {
 			// Separar los valores que estan en la linea por el caracter ';'
 			String[] partes = linea.split(";");
 			
-			ProductoMenu nuevoProducto = new ProductoMenu(partes[0], Integer.parseInt(partes[1]));   // Creacion de un objeto ProductoMenu con su nombre y precio base
+			ProductoMenu nuevoProducto = new ProductoMenu(partes[0], Integer.parseInt(partes[1]),Integer.parseInt(partes[2]));   // Creacion de un objeto ProductoMenu con su nombre y precio base
 			productosMenu.add( nuevoProducto );
 
 			linea = br.readLine(); // leer la proxima linea en el archivo con un nuevo ProductoMenu 
@@ -109,7 +109,7 @@ public class LoaderInformacionArchivos {
 			String[] partes = linea.split(";");
 			//Partes 0 es el nombre Partes 1 es el precio adicional
 			
-			Ingrediente nuevoIngrediente= new Ingrediente(Integer.parseInt(partes[1]), partes[0]);   // Creacion de un objeto Ingrediente con precio Adicional y Nombre
+			Ingrediente nuevoIngrediente = new Ingrediente(Integer.parseInt(partes[1]), partes[0],Integer.parseInt(partes[2]));   // Creacion de un objeto Ingrediente con precio Adicional y Nombre
 			Ingredientes.add( nuevoIngrediente );
 
 			linea = br.readLine(); // leer la proxima linea en el archivo con un nuevo Ingrediente
@@ -132,8 +132,8 @@ public class LoaderInformacionArchivos {
 			String[] partes = linea.split(";");
 			//Partes 0 es el nombre Partes 1 es el precio adicional
 			
-			ProductoMenu nuevoIngrediente= new ProductoMenu(partes[0], Integer.parseInt(partes[1]));   // Creacion de un objeto Ingrediente con precio Adicional y Nombre
-			bebidas.add(nuevoIngrediente );
+			ProductoMenu nuevoBebida= new ProductoMenu(partes[0], Integer.parseInt(partes[1]),Integer.parseInt(partes[2]));   // Creacion de un objeto Ingrediente con precio Adicional y Nombre
+			bebidas.add(nuevoBebida );
 
 			linea = br.readLine(); // leer la proxima linea en el archivo con un nuevo Ingrediente
 		}
