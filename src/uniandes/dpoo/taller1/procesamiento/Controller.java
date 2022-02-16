@@ -16,10 +16,6 @@ public class Controller {
 	//Metodos
 
 	
-	public void iniciarPedido(String nombreCliente, String direccionCliente) {
-		Restaurante.iniciarPedido(nombreCliente, direccionCliente);
-		
-	}
 	 
 	
 	

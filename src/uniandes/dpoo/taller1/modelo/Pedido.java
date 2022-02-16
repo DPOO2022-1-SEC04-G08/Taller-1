@@ -11,17 +11,17 @@ import uniandes.dpoo.taller1.modelo.Producto;
 public class Pedido {
 	// Attributes
 		private static int numeroPedidos;
-		private int idPedido;
+		private static int idPedido;
 		private String nombreCliente; 
 		private String direccionCliente; 
 		
-		private  ArrayList<Producto> itemsPedido;  
+		private  ArrayList<Producto> itemsPedido= new ArrayList<>();  
 		
 		//Constructor
 		public Pedido(String nombreCliente, String direccionCliente) {
 			this.nombreCliente = nombreCliente; 
 			this.direccionCliente = direccionCliente;
-			this.idPedido += 1;
+			Pedido.idPedido += 1;
 		}
 		
 		// Get methods
@@ -47,7 +47,7 @@ public class Pedido {
 		//Impuestos
 		private int getPrecioIVAPedido() {
 			
-			int IVA = (getPrecioTotalPedido()*(19))/100;
+			int IVA = (getPrecioNetoPedido()*(19))/100;
 			
 			return IVA;
 			
@@ -117,6 +117,7 @@ public class Pedido {
 			 }
 			 
 			 escribir.close();
+			 
 
 
 			

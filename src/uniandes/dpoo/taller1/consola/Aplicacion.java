@@ -1,7 +1,8 @@
 package uniandes.dpoo.taller1.consola;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,15 +11,23 @@ import java.util.ArrayList;
 import uniandes.dpoo.taller1.procesamiento.LoaderInformacionArchivos;
 import uniandes.dpoo.taller1.modelo.Combo;
 import uniandes.dpoo.taller1.modelo.Ingrediente;
+import uniandes.dpoo.taller1.modelo.Pedido;
+import uniandes.dpoo.taller1.modelo.Producto;
+import uniandes.dpoo.taller1.modelo.ProductoAjustado;
 import uniandes.dpoo.taller1.modelo.ProductoMenu;
-
-import uniandes.dpoo.taller1.procesamiento; 
+import uniandes.dpoo.taller1.modelo.Restaurante; 
 public class Aplicacion {
+	
+	Restaurante restaurante = new Restaurante();
+	private ArrayList<Ingrediente> ingredientes= new ArrayList<>(); 
+	private ArrayList<ProductoMenu> ProductosMenu= new ArrayList<>(); 
+	private ArrayList<Combo> combos= new ArrayList<>(); 	
 	
 	
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Aplicacion consola = new Aplicacion();
+		
 		//Pruebas//
 		//consola.probarcarga();
 		//Ejecutar app
@@ -57,41 +66,77 @@ public class Aplicacion {
 		boolean continuar = true;
 		//String nombre = input("ingrese su nombre: ");
 		//String direccion = input ("ingrese su direccion: ");
+		Pedido pedido = null;
 		while (continuar)
 		{
 			mostrarMenu();
 			int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion"));
 			// aqui van los ifs para hacer funcionnar el programa 
-			if (opcion_seleccionada  == 1) 
-			{
-				mostrar_menu();
-				
+			if (opcion_seleccionada == 0){
+				try {
+					cargar_informacion();//Cargar informacion del restaurante
+				} catch (IOException e) {
+					// FIXME Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-			else if (opcion_seleccionada  == 2) 
-			{
-				nuevoPedido();
+			if ((this.ingredientes.size()!=0 ) ||  (this.combos.size()!=0) || (this.ProductosMenu.size()!=0)    ) {
+				if (opcion_seleccionada  == 1) 
+				{
+					mostrar_menu();
+					
+				}
+				else if (opcion_seleccionada  == 2) 
+				{
+					pedido = nuevoPedido();
+					System.out.println(pedido.getIdPedido());
 				
-			} 
-			else if (opcion_seleccionada  == 3) 
-			{
-				System.out.println("cerrando programa");
+					
+					
+				} if (opcion_seleccionada  == 3) {
+					try {
+						cerrar_guardar(pedido);
+					} catch (IOException e) {
+						// FIXME Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println(restaurante.getPedidoEnCurso().getIdPedido());
+					
+				}
+					if (opcion_seleccionada  == 4) 
+				{
+					int id= Integer.parseInt(input("Ingrese el id del pedido que desea consultar"));
+					Pedido pedido1 = consultar_pedido(id);
+					System.out.println(id);
+					
+					
+					if (pedido1 != null) {
+						Desktop ficheroAEjecutar = Desktop.getDesktop();
+					   
+					    try {
+							ficheroAEjecutar.open(new File ("./Facturas/factura" + String.valueOf(id) + ".txt"));
+							System.out.println("Se ha abierto la factura");
+						} catch (IOException e) {
+							// FIXME Auto-generated catch block
+							e.printStackTrace();
+						}
+					   
+					}
+					
 				
-			} 
-			else if (opcion_seleccionada  == 4) 
-			{
-				System.out.println("cerrando programa");
-				
-			} 
-			else if (opcion_seleccionada  == 5) 
-			{
-				System.out.println("cerrando programa");
-				
-			} 
-			
-			else if (opcion_seleccionada  == 6) 
-			{
-				System.out.println("cerrando programa");
-				continuar = false;
+				} 
+				else if (opcion_seleccionada  == 5) 
+				{
+					
+					System.out.println("cerrando programa");
+					continuar=false;
+					
+				} 
+	
+			}
+			else {
+				System.out.println("No puede ejcutar esa opcion. Cargue el archivo e intente de nuevo");
+				continue;
 			}
 			
 		}
@@ -102,21 +147,13 @@ public class Aplicacion {
 		
 		
 		System.out.println("\nOpciones de la aplicaci√≥n\n");
+		System.out.println("0. Cargar");
 		System.out.println("1. mostrar menu");
-		System.out.println("2. iniciar un nuevo pedido");
-		//Pedir nombre y direccion
-		//2 Preguntar si quiere combo 
-		//3 Si quiere:  Ingrese los combos que desea pedir separados por ;
-		//4 Preguntar si quiere productos del Menu
-		//Si quiere: Ingrese los productos del menu que quiere pedir separados por ; 
-		//5 Preguntar si quiere ingredientes adicionales
-		//Si quiere Infresar ingredientes que quiere pedir separados por ; 
-		//6 Terminar pedido
-		System.out.println("3. agregar un elemento a un pedido");
 		
-		System.out.println("4. cerrar un pedido y guardar la factura");
-		System.out.println("5. Consultar la informacion de un pedido y guardar la factura");
-		System.out.println("6. Salir de la aplicaci√≥n\n");
+		System.out.println("2. iniciar un nuevo pedido");
+		System.out.println("3. Cerrar pedido actual y guardar factura");
+		System.out.println("4. Consultar la informacion de un pedido");
+		System.out.println("5. Salir de la aplicaci√≥n\n");
 	}
 	
 	// funcion para mostrar el menu
@@ -124,26 +161,253 @@ public class Aplicacion {
 	private void mostrar_menu() 
 	{
 		
-		System.out.println("el menu es: ");
-		//insertar el menu 
+		System.out.println("El menu es: ");
+		
+		int numeral = 1; 
+		System.out.println("    Combos");
+		for (Combo com: this.combos) {
+			System.out.println(String.valueOf(numeral) +"."+ com.getNombre() );
+			numeral+=1;
+			
+		}
+		System.out.println("    Ingredientes");
+		for (Ingrediente ing: this.ingredientes) {
+			System.out.println(String.valueOf(numeral) +"."+ ing.getNombre() );
+			numeral+=1;
+			
+		}
+		System.out.println("    Productos del menu");
+		for (ProductoMenu prod: this.ProductosMenu) {
+			System.out.println(String.valueOf(numeral) +"."+ prod.getNombre() );
+			numeral+=1;
+			
+		}
+	
+		
+		
 	}
 
-	private void nuevoPedido()
+	
+	
+	private void cargar_informacion() throws FileNotFoundException, IOException {
+		//LoaderInformacionArchivos.leerInfoArchivoProductosMenu(.);
+		this.ProductosMenu = LoaderInformacionArchivos.leerInfoArchivoProductosMenu("./data/menu.txt");
+		this.ingredientes = LoaderInformacionArchivos.leerInfoArchivoIngredientes("./data/ingredientes.txt");
+		this.combos = LoaderInformacionArchivos.leerInfoArchivoCombos("./data/combos.txt", ProductosMenu);
+	}
+	
+	
+	private void cerrar_guardar(Pedido pedido) throws IOException{
+		restaurante.cerrarYGuardarPedido(pedido);
+		
+	}
+	private Pedido consultar_pedido(int id) {
+		
+		for (Pedido ped: restaurante.pedidos) {
+			
+			if (ped.getIdPedido() == id) {
+				System.out.print("Se ha encontrado el pedido");
+				return ped;
+				
+			}
+			
+		}
+		return null;
+		
+	}
+	
+	
+	
+	private Pedido nuevoPedido()
 	{
-		String productos = new String("");
-		String producto = new String("");
+		String nombreCliente = input("Porfavor ingrese su nombre:"); 
+		String direccionCliente = input ("Porfavor ingrese su direccion:");
+		
+		
+		//Se crea un producto 
+		
+		Pedido newPedido= restaurante.iniciarPedido(nombreCliente,direccionCliente);
+		
+		
+		ArrayList<Producto> productosPedido = new ArrayList<Producto>();
+		//Producto producto =null;
+		
+		//Hace Lista de Productos
+		boolean pidiendo = true; 
+		
+		while (pidiendo) {
+			
+			System.out.print("øQue desea comprar?");
+			System.out.print("1. combos \n");
+			System.out.print("2. menu normal \n");
+			System.out.print("3. Salir \n");
+			//System.out.print("2. ingredientes \n");
+			int indiceProducto  = Integer.parseInt(input("Por favor seleccione una opcion"));
+			
+			//Opcion valida
+			boolean hasta = false;
+			if ((indiceProducto== 0) || ( indiceProducto> 3)){
+				hasta = true;
+			}
+			while (hasta) {
+				indiceProducto = Integer.parseInt(input("Por favor seleccione una opcion valida"));
+				if (( indiceProducto != 0) && (indiceProducto< 4)) {
+					hasta = false;
+				}
+			}
+			
+			//Condicional 
+			
+			if (indiceProducto == 1)
+			{
+				Combo productoCombo = nombreCombo();	
+				productosPedido.add(productoCombo); 
+			}
+			else if (indiceProducto == 2)
+			{
+				ProductoMenu productoMenu = nombreMenu();
+				
+				boolean modificarIngrediente = true; 
+				ProductoAjustado productoConIngrediente = new ProductoAjustado(productoMenu);
+				
+				
+				while (modificarIngrediente) {
+					
+					System.out.print("Desea aÒadir/eliminar un ingrediente?");
+					
+					System.out.print("1. No \n");
+					System.out.print("2. AÒadir \n");
+					System.out.print("3. Eliminar \n");
+					
+					int indiceingrediente  = Integer.parseInt(input("Por favor seleccione una opcion"));
+					
+					//Valida opcion
+					boolean hasta1 = false;
+					if ((indiceingrediente== 0) || ( indiceingrediente> 3)){
+						hasta1 = true;
+					}
+					while (hasta1) {
+						indiceingrediente = Integer.parseInt(input("Por favor seleccione una opcion valida"));
+						if (( indiceingrediente != 0) && (indiceingrediente< 4)) {
+							hasta1 = false;
+						}
+					}
+					
+					//Condicionales
+					if (indiceingrediente ==1) {
+						modificarIngrediente = false; 
+					}
+					if (indiceingrediente == 2) {
+						//Crea Ingrediente
+						Ingrediente ingredienteanadido = nombreIngrediente ();
+						
+						//Se aÒade ingrediente producto base
+						
+						//Agregar a arraylist de agregados
+						productoConIngrediente.agregados.add(ingredienteanadido); 
+	
+					}
+					if (indiceingrediente == 3) {
+						//Crea Ingrediente
+						Ingrediente ingredienteanadido = nombreIngrediente ();
+		
+						//Agregar a ArrayList de eliminados
+						productoConIngrediente.eliminados.add(ingredienteanadido); 
+	
+					}
+					
+				}
+				
+				
+				productosPedido.add(productoConIngrediente); 
+				
+				
+	
+				}
+			else if (indiceProducto == 3)
+			{ 
+				pidiendo = false; 
+			}
+			
+			}
+		
+		for (Producto p: productosPedido) {
+			System.out.print(p.getNombre());
+			newPedido.agregarProducto(p);
+			
+		}
+		return newPedido;
+		
+		}
+		
+		
+		
+		/*
+		
 		int numeroProductos = Integer.parseInt(input("øCuantos productos quiere comprar?"));
 		int indiceProducto = -1; 
 		int contador = 0;
-		while (contador < numeroProductos)
+		while (contador <= numeroProductos)
 		{
+
+			
+			System.out.print("1. combos \n");
+			System.out.print("2. ingredientes \n");
+			System.out.print("3. menu normal \n");
+			indiceProducto  = Integer.parseInt(input("Por favor seleccione una opcion"));
+			
+			boolean hasta = false;
+			if ((indiceProducto== 0) || ( indiceProducto> 3)){
+				hasta = true;
+			}
+			while (hasta) {
+				indiceProducto = Integer.parseInt(input("Por favor seleccione una opcion valida"));
+				if (( indiceProducto != 0) && (indiceProducto< 4)) {
+					hasta = false;
+				}
+			}
+			
+			if (indiceProducto == 1)
+			{
+				Combo productoCombo = nombreCombo();
+				System.out.print(productoCombo.getNombre());
+			}
+			
+			else if (indiceProducto == 2)
+			{
+				System.out.print("0. No \n");
+				
+			}
+			else if (indiceProducto == 3)
+			{
+				producto = nombreMenu();
+				System.out.print("Desea aÒadir/eliminar un ingrediente?");
+				
+				System.out.print("0. No \n");
+				System.out.print("1. AÒadir \n");
+				System.out.print("2. Eliminar \n");
+				int indiceingrediente  = Integer.parseInt(input("Por favor seleccione una opcion"));
+				if (indiceingrediente ==0) {
+					System.out.print("No se ha eliminado ningun ingrediente");
+				}
+
+		
+			//productos = producto + ",";
+			contador = contador +1;
+			}
+		}
+			
+			
+			
 			if (numeroProductos == 1)
 			{
 				
 				System.out.print("1. combos \n");
 				System.out.print("2. ingredientes \n");
 				System.out.print("3. menu normal \n");
+				
 				indiceProducto  = Integer.parseInt(input("Por favor seleccione una opcion"));
+				
 				boolean hasta = false;
 				if ((indiceProducto== 0) || ( indiceProducto> 3)){
 					hasta = true;
@@ -154,20 +418,29 @@ public class Aplicacion {
 						hasta = false;
 					}
 				}
+				
 				if (indiceProducto == 1)
 				{
-					producto = nombreCombo();
+					Producto productoc = (Producto) nombreCombo();
+					productos.add(producto);
+					
 				}
 				
 				else if (indiceProducto == 2)
 				{
-					producto = nombreIngrediente();
+					
+					
+					
+					Producto productoi = (Producto) nombreIngrediente();
+					productos.add(productoi);
 				}
 				else if (indiceProducto == 3)
 				{
-					producto = nombreMenu();
+					Producto productom = nombreMenu();
+					//productos.add(productom);
 				}
-				productos = productos+ producto;
+				
+				
 				contador = contador +1;
 			}
 			else if(contador  == 0)
@@ -188,20 +461,32 @@ public class Aplicacion {
 				}
 				if (indiceProducto == 1)
 				{
-					producto = nombreCombo();
+					Combo productoCombo = nombreCombo();
+					System.out.print(productoCombo.getNombre());
 				}
 				
 				else if (indiceProducto == 2)
 				{
-					producto = nombreIngrediente();
+					System.out.print("0. No \n");
+					
 				}
 				else if (indiceProducto == 3)
 				{
 					producto = nombreMenu();
-				}
-				productos = producto + ",";
+					System.out.print("Desea aÒadir/eliminar un ingrediente?");
+					
+					System.out.print("0. No \n");
+					System.out.print("1. AÒadir \n");
+					System.out.print("2. Eliminar \n");
+					int indiceingrediente  = Integer.parseInt(input("Por favor seleccione una opcion"));
+					if (indiceingrediente ==0) {
+						System.out.print("No se ha eliminado ningun ingrediente");
+					}
+	
+			
+				//productos = producto + ",";
 				contador = contador +1;
-			}
+				}
 			else
 			{
 				System.out.print("1. combos \n");
@@ -220,12 +505,13 @@ public class Aplicacion {
 				}
 				if (indiceProducto == 1)
 				{
-					producto = nombreCombo();
+					Combo productoCombo = nombreCombo();
+					System.out.print(productoCombo.getNombre());
 				}
 				
 				else if (indiceProducto == 2)
 				{
-					producto = nombreIngrediente();
+					Ingrediente productoInge = nombreIngrediente();
 				}
 				else if (indiceProducto == 3)
 				{
@@ -236,30 +522,53 @@ public class Aplicacion {
 			}
 		}
 		System.out.print(productos);
-	}
+		
+		
+		String[] listaProductos = productos.split(",");
+		for (String productoLista: listaProductos ) {*/
+			
+			
+			
+			
+	
+			
+		
+
+	
+	
+	
 	
 	//para que nos de el nombre del combo
 	
-	private String nombreCombo ()
+	private Combo nombreCombo ()
 	{
-		String respuesta = new String("");
-		System.out.print("1. combo corral \n");
-		System.out.print("2. combo corral queso\n");
-		System.out.print("3. combo todoterreno\n");
-		System.out.print("4. combo especial\n");
+		Combo respuesta = null;
+		
+		int numeral = 1; 
+		
+		for (Combo com: this.combos) {
+			System.out.println(String.valueOf(numeral) +"."+ com.getNombre() );
+			numeral+=1;
+			
+		}
 		
 		int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion"));
 		boolean hasta = false;
-		if ((opcion_seleccionada == 0) || ( opcion_seleccionada > 4)){
+		if ((opcion_seleccionada == 0) || ( opcion_seleccionada > this.combos.size())){
 			hasta = true;
 		}
 		while (hasta) {
 			opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion valida"));
-			if (( opcion_seleccionada != 0) && (opcion_seleccionada < 5)) {
+			if (( opcion_seleccionada != 0) && (opcion_seleccionada < this.combos.size())) {
 				hasta = false;
 			}
 		}
 		
+		respuesta = this.combos.get((opcion_seleccionada-1));
+		return respuesta;
+		
+		
+		/*
 		if (opcion_seleccionada == 1) {
 			respuesta = "combo corral";
 		}
@@ -272,11 +581,12 @@ public class Aplicacion {
 		else if (opcion_seleccionada == 4) {
 			respuesta = "combo especial";
 		}
-		return respuesta;
+		return respuesta;*/
 	}
 	
-	private String nombreMenu ()
+	private ProductoMenu nombreMenu ()
 	{
+		/*
 		System.out.print("1. corral \n");
 		System.out.print("2. corral queso \n");
 		System.out.print("3. corral pollo \n");
@@ -299,18 +609,34 @@ public class Aplicacion {
 		System.out.print("20. agua cristal sin gas \n");
 		System.out.print("21. agua cristal con gas \n");
 		System.out.print("22. gaseosa \n");
-		String respuesta = new String("");
+		*/
+		int numeral = 1; 
+		for (ProductoMenu prod: this.ProductosMenu) {
+			System.out.println(String.valueOf(numeral) +"."+ prod.getNombre() );
+			numeral+=1;
+			
+		}
+		
+		
+		ProductoMenu respuesta = null;
+		
 		int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion"));
 		boolean hasta = false;
-		if ((opcion_seleccionada == 0) || ( opcion_seleccionada > 22)){
+		if ((opcion_seleccionada == 0) || ( opcion_seleccionada > this.ProductosMenu.size())){
 			hasta = true;
 		}
 		while (hasta) {
 			opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion valida"));
-			if (( opcion_seleccionada != 0) && (opcion_seleccionada < 23)) {
+			if (( opcion_seleccionada != 0) && (opcion_seleccionada < this.ProductosMenu.size())) {
 				hasta = false;
 			}
+			
 		}
+		
+		respuesta = this.ProductosMenu.get((opcion_seleccionada-1));
+		return respuesta;
+		
+		/*
 		if (opcion_seleccionada == 1) {
 			respuesta = "corral";
 		}
@@ -377,11 +703,13 @@ public class Aplicacion {
 		else if (opcion_seleccionada == 22) {
 			respuesta = "gaseosa";
 		}
-		return respuesta;
+		*/
+		
 	}
 
-	private String nombreIngrediente ()
+	private Ingrediente nombreIngrediente ()
 	{
+		/*
 		System.out.print("1. lechuga \n");
 		System.out.print("2. tomate \n");
 		System.out.print("3. cebolla \n");
@@ -397,18 +725,35 @@ public class Aplicacion {
 		System.out.print("13. queso fundido \n");
 		System.out.print("14. tocineta picada \n");
 		System.out.print("15. piÒa \n");
-		String respuesta = new String("");
+		*/
+		int numeral = 1; 
+		for (Ingrediente prod: this.ingredientes) {
+			System.out.println(String.valueOf(numeral) +"."+ prod.getNombre() );
+			numeral+=1;
+			
+		}
+		
+		Ingrediente respuesta = null;
+		
 		int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion"));
+		
 		boolean hasta = false;
-		if ((opcion_seleccionada == 0) || ( opcion_seleccionada > 15)){
+		if ((opcion_seleccionada == 0) || ( opcion_seleccionada > this.ingredientes.size())){
 			hasta = true;
 		}
 		while (hasta) {
 			opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion valida"));
-			if (( opcion_seleccionada != 0) && (opcion_seleccionada < 16)) {
+			if (( opcion_seleccionada != 0) && (opcion_seleccionada < this.ingredientes.size())) {
 				hasta = false;
 			}
 		}
+		
+		respuesta = this.ingredientes.get((opcion_seleccionada-1));
+		return respuesta ;
+		
+		
+		
+		/*
 		if (opcion_seleccionada == 1) {
 			respuesta = "lechuga";
 		}
@@ -453,8 +798,8 @@ public class Aplicacion {
 		}
 		else if (opcion_seleccionada == 15) {
 			respuesta = "piÒa";
-		}
-		return respuesta ;
+		}*/
+		
 	}
 	
 	public String input(String mensaje)

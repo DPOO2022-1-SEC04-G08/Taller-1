@@ -12,18 +12,18 @@ public class Restaurante {
 	}
 	
 	
-	private ArrayList<Pedido> pedidos;
-	private Pedido PedidoEnCurso;
+	public ArrayList<Pedido> pedidos = new ArrayList<>();
+	public Pedido PedidoEnCurso;
 	
-	private ArrayList<Producto> ingredientes; 
-	private ArrayList<Producto> ProductosMenu; 
-	private ArrayList<Producto> combos; 	
+	private ArrayList<Producto> ingredientes= new ArrayList<>(); 
+	private ArrayList<Producto> ProductosMenu= new ArrayList<>(); 
+	private ArrayList<Producto> combos= new ArrayList<>(); 	
 	
 	
 	
 	//Modificacion a iniciarPedido para que sea capaz de añadir los ingredientes una vex sean ingresados por parametro 
 	
-	public void iniciarPedido(String nombreCliente, String direccionCliente, String productos ) {
+	public Pedido iniciarPedido(String nombreCliente, String direccionCliente ) {
 		Pedido newPedido  = new Pedido(nombreCliente, direccionCliente);
 		// Se añade al listado de pedidos
 		pedidos.add(newPedido);
@@ -33,18 +33,9 @@ public class Restaurante {
 			
 			PedidoEnCurso = pedidos.get(0);
 		}
-		
-		String[] productosList = productos.split(","); 
-		
-		//for (String[]: productosList) 
-			//for (Producto e: combos)
-			
-			
-		//}
+		return newPedido; 
 
 	}
-	
-	
 	
 	
 	public ArrayList<Ingrediente> cargarIngredientes() throws IOException {
@@ -66,19 +57,21 @@ public class Restaurante {
 	}
 
 
-	public  void cerrarYGuardarPedido() throws IOException {
+	public  void cerrarYGuardarPedido(Pedido pedido) throws IOException {
 		
-		File archivo = new File("./Facturas/factura" + String.valueOf(getPedidoEnCurso().getIdPedido()) + ".txt");
+		File archivo = new File("./Facturas/factura" + String.valueOf(pedido.getIdPedido()) + ".txt");
 		
 		//Se crea la factura y se guarda en un File dentro de la carpeta Facturas
 		getPedidoEnCurso().guardarFactura(archivo);
 		
 		//  Se elimina el pedido en curso de la lista
-		pedidos.remove(0);
+		//pedidos.remove(0);
 		
 		 //Se asigna un nuevo pedido en curso-> El siguiente que ha llegado
-		
-		PedidoEnCurso = pedidos.get(0);
+		if (pedidos.indexOf(PedidoEnCurso)+1 < pedidos.size()) {
+	
+		PedidoEnCurso = pedidos.get(pedidos.indexOf(PedidoEnCurso)+1);
+		}
 
 		
 	}
