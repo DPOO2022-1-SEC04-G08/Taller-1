@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
+import uniandes.dpoo.taller1.procesamiento.Controller;
 import uniandes.dpoo.taller1.procesamiento.LoaderInformacionArchivos;
 import uniandes.dpoo.taller1.modelo.Combo;
 import uniandes.dpoo.taller1.modelo.Ingrediente;
@@ -69,7 +69,7 @@ public class Aplicacion {
 		Pedido pedido = null;
 		while (continuar)
 		{
-			mostrarMenu();
+			mostrarOpciones();
 			int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion"));
 			// aqui van los ifs para hacer funcionnar el programa 
 			if (opcion_seleccionada == 0){
@@ -142,7 +142,7 @@ public class Aplicacion {
 		}
 	}
 	
-	public void mostrarMenu()
+	public void mostrarOpciones()
 	{
 		
 		
@@ -161,29 +161,9 @@ public class Aplicacion {
 	private void mostrar_menu() 
 	{
 		
-		System.out.println("El menu es: ");
-		
-		int numeral = 1; 
-		System.out.println("    Combos");
-		for (Combo com: this.combos) {
-			System.out.println(String.valueOf(numeral) +"."+ com.getNombre() );
-			numeral+=1;
-			
-		}
-		System.out.println("    Ingredientes");
-		for (Ingrediente ing: this.ingredientes) {
-			System.out.println(String.valueOf(numeral) +"."+ ing.getNombre() );
-			numeral+=1;
-			
-		}
-		System.out.println("    Productos del menu");
-		for (ProductoMenu prod: this.ProductosMenu) {
-			System.out.println(String.valueOf(numeral) +"."+ prod.getNombre() );
-			numeral+=1;
-			
-		}
-	
-		
+		System.out.println("el menu es: ");
+		Controller menu = new Controller();
+		menu.menu();
 		
 	}
 
@@ -237,7 +217,7 @@ public class Aplicacion {
 		
 		while (pidiendo) {
 			
-			System.out.print("¿Que desea comprar?");
+			System.out.print("ï¿½Que desea comprar?");
 			System.out.print("1. combos \n");
 			System.out.print("2. menu normal \n");
 			System.out.print("3. Salir \n");
@@ -273,10 +253,10 @@ public class Aplicacion {
 				
 				while (modificarIngrediente) {
 					
-					System.out.print("Desea añadir/eliminar un ingrediente?");
+					System.out.print("Desea aï¿½adir/eliminar un ingrediente?");
 					
 					System.out.print("1. No \n");
-					System.out.print("2. Añadir \n");
+					System.out.print("2. Aï¿½adir \n");
 					System.out.print("3. Eliminar \n");
 					
 					int indiceingrediente  = Integer.parseInt(input("Por favor seleccione una opcion"));
@@ -301,7 +281,7 @@ public class Aplicacion {
 						//Crea Ingrediente
 						Ingrediente ingredienteanadido = nombreIngrediente ();
 						
-						//Se añade ingrediente producto base
+						//Se aï¿½ade ingrediente producto base
 						
 						//Agregar a arraylist de agregados
 						productoConIngrediente.agregados.add(ingredienteanadido); 
@@ -344,7 +324,7 @@ public class Aplicacion {
 		
 		/*
 		
-		int numeroProductos = Integer.parseInt(input("¿Cuantos productos quiere comprar?"));
+		int numeroProductos = Integer.parseInt(input("ï¿½Cuantos productos quiere comprar?"));
 		int indiceProducto = -1; 
 		int contador = 0;
 		while (contador <= numeroProductos)
@@ -381,10 +361,10 @@ public class Aplicacion {
 			else if (indiceProducto == 3)
 			{
 				producto = nombreMenu();
-				System.out.print("Desea añadir/eliminar un ingrediente?");
+				System.out.print("Desea aï¿½adir/eliminar un ingrediente?");
 				
 				System.out.print("0. No \n");
-				System.out.print("1. Añadir \n");
+				System.out.print("1. Aï¿½adir \n");
 				System.out.print("2. Eliminar \n");
 				int indiceingrediente  = Integer.parseInt(input("Por favor seleccione una opcion"));
 				if (indiceingrediente ==0) {
@@ -473,10 +453,10 @@ public class Aplicacion {
 				else if (indiceProducto == 3)
 				{
 					producto = nombreMenu();
-					System.out.print("Desea añadir/eliminar un ingrediente?");
+					System.out.print("Desea aï¿½adir/eliminar un ingrediente?");
 					
 					System.out.print("0. No \n");
-					System.out.print("1. Añadir \n");
+					System.out.print("1. Aï¿½adir \n");
 					System.out.print("2. Eliminar \n");
 					int indiceingrediente  = Integer.parseInt(input("Por favor seleccione una opcion"));
 					if (indiceingrediente ==0) {
@@ -597,7 +577,7 @@ public class Aplicacion {
 		System.out.print("8. casera \n");
 		System.out.print("9. mexicana \n");
 		System.out.print("10. criolla \n");
-		System.out.print("11. costeña \n");
+		System.out.print("11. costeï¿½a \n");
 		System.out.print("12. hawaiana \n");
 		System.out.print("13. wrap de pollo \n");
 		System.out.print("14. wrap de lomo \n");
@@ -668,7 +648,7 @@ public class Aplicacion {
 			respuesta = "criolla";
 		}
 		else if (opcion_seleccionada == 11) {
-			respuesta = "costeña";
+			respuesta = "costeï¿½a";
 		}
 		else if (opcion_seleccionada == 12) {
 			respuesta = "hawaiana";
@@ -720,11 +700,11 @@ public class Aplicacion {
 		System.out.print("8. papa callejera \n");
 		System.out.print("9. pepinillos \n");
 		System.out.print("10. cebolla grille \n");
-		System.out.print("11. suero costeño \n");
+		System.out.print("11. suero costeï¿½o \n");
 		System.out.print("12. frijol refrito \n");
 		System.out.print("13. queso fundido \n");
 		System.out.print("14. tocineta picada \n");
-		System.out.print("15. piña \n");
+		System.out.print("15. piï¿½a \n");
 		*/
 		int numeral = 1; 
 		for (Ingrediente prod: this.ingredientes) {
@@ -785,7 +765,7 @@ public class Aplicacion {
 			respuesta = "cebolla grille";
 		}
 		else if (opcion_seleccionada == 11) {
-			respuesta = "suero costeño";
+			respuesta = "suero costeï¿½o";
 		}
 		else if (opcion_seleccionada == 12) {
 			respuesta = "frijol refrito";
@@ -797,7 +777,7 @@ public class Aplicacion {
 			respuesta = "tocineta picada";
 		}
 		else if (opcion_seleccionada == 15) {
-			respuesta = "piña";
+			respuesta = "piï¿½a";
 		}*/
 		
 	}
