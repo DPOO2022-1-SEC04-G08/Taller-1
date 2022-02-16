@@ -6,13 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
+import uniandes.dpoo.taller1.procesamiento.Controller;
 import uniandes.dpoo.taller1.procesamiento.LoaderInformacionArchivos;
 import uniandes.dpoo.taller1.modelo.Combo;
 import uniandes.dpoo.taller1.modelo.Ingrediente;
 import uniandes.dpoo.taller1.modelo.ProductoMenu;
+import uniandes.dpoo.taller1.modelo.Restaurante;
 
-import uniandes.dpoo.taller1.procesamiento; 
+
 public class Aplicacion {
 	
 	
@@ -59,7 +60,7 @@ public class Aplicacion {
 		//String direccion = input ("ingrese su direccion: ");
 		while (continuar)
 		{
-			mostrarMenu();
+			mostrarOpciones();
 			int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opcion"));
 			// aqui van los ifs para hacer funcionnar el programa 
 			if (opcion_seleccionada  == 1) 
@@ -97,7 +98,7 @@ public class Aplicacion {
 		}
 	}
 	
-	public void mostrarMenu()
+	public void mostrarOpciones()
 	{
 		
 		
@@ -125,7 +126,9 @@ public class Aplicacion {
 	{
 		
 		System.out.println("el menu es: ");
-		//insertar el menu 
+		Controller menu = new Controller();
+		menu.menu();
+		
 	}
 
 	private void nuevoPedido()
