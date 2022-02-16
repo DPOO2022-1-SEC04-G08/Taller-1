@@ -1,20 +1,40 @@
 Factura
  Id del Pedido: 1
  Precio por producto: 
-corral    14000
+combo corral    24490
 
 
 
-Precio neto: 14000
-IVA: 2660
-Precio Total: 16660
+Precio neto: 24490
+IVA: 4653
+Precio Total: 29143
 Factura
  Id del Pedido: 1
  Precio por producto: 
-corral    14000
+combo corral    24490
 
 
 
-Precio neto: 14000
-IVA: 2660
-Precio Total: 16660
+Precio neto: 24490
+IVA: 4653
+Precio Total: 29143
+Factura
+ Id del Pedido: 1
+ Precio por producto: 
+combo corral    24490
+
+
+
+Precio neto: 24490
+IVA: 4653
+Precio Total: 29143
+Factura
+ Id del Pedido: 1
+ Precio por producto: 
+combo corral    24490
+
+
+
+Precio neto: 24490
+IVA: 4653
+Precio Total: 29143

@@ -122,7 +122,7 @@ public class Pedido {
 			 escribir.close();
 			
 		}
-		public void equals(Pedido pedidoComparar) {
+		public boolean equals(Pedido pedidoComparar) {
 			
 			boolean same = true; 
 			for (Producto prod: this.itemsPedido) {
@@ -136,6 +136,12 @@ public class Pedido {
 					
 				}
 				
+			}
+			
+			if (same==true) {
+				return true;
+			}else {
+				return false; 
 			}
 			
 			

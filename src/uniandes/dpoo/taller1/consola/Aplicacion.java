@@ -127,7 +127,23 @@ public class Aplicacion {
 					
 				
 				} 
-				else if (opcion_seleccionada  == 5) 
+					else if (opcion_seleccionada  == 5) {
+						int id = Integer.parseInt(input("Ingrese el id del pedido 1 que desea consultar"));
+						Pedido pedido1 = restaurante.pedidos.get(id-1);
+						int id2 = Integer.parseInt(input("Ingrese el id del pedido 2 que desea consultar"));
+						Pedido pedido2 = restaurante.pedidos.get((id2-1));
+						System.out.println(pedido1.getIdPedido());
+						
+						boolean same = pedido1.equals(pedido2); 
+						
+						if (same ==true) {
+							System.out.println("En ambos pedidos se ordeno lo mismo ");
+						}else {
+							System.out.println("Los pedidos ordenaron diferentes productos");
+						}
+						
+					}
+				else if (opcion_seleccionada  == 6) 
 				{
 					
 					System.out.println("cerrando programa");
@@ -155,7 +171,8 @@ public class Aplicacion {
 		System.out.println("2. iniciar un nuevo pedido");
 		System.out.println("3. Cerrar pedido actual y guardar factura");
 		System.out.println("4. Consultar la informacion de un pedido");
-		System.out.println("5. Salir de la aplicación\n");
+		System.out.println("5. Consultar si dos pedidos son iguales");
+		System.out.println("6. Salir de la aplicación\n");
 	}
 	
 	// funcion para mostrar el menu
