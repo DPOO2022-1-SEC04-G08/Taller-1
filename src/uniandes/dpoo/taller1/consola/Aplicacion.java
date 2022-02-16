@@ -1,16 +1,18 @@
 package uniandes.dpoo.taller1.consola;
 
 import java.io.BufferedReader;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import uniandes.dpoo.taller.procesamiento.LoaderInformacionArchivos;
+import uniandes.dpoo.taller1.procesamiento.LoaderInformacionArchivos;
 import uniandes.dpoo.taller1.modelo.Combo;
 import uniandes.dpoo.taller1.modelo.Ingrediente;
 import uniandes.dpoo.taller1.modelo.ProductoMenu;
 
+import uniandes.dpoo.taller1.procesamiento; 
 public class Aplicacion {
 	
 	
